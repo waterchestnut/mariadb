@@ -7,7 +7,7 @@ RUN set -ex; \
         grep backup /etc/passwd /etc/group; \
         usermod -aG mysql backup; \
         grep backup /etc/group; \
-        exec su - ${USER}; \
+        # exec su - ${USER}; \ # stdin: is not a tty
         id -nG; \
         find /var/lib/mysql -type d -exec chmod 750 {} \;
 
