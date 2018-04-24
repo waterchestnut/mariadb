@@ -34,4 +34,7 @@ RUN set -ex; \
 COPY  ./cron.sh   /etc/cron.hourly/backup-mysql
 RUN chmod +x /etc/cron.hourly/backup-mysql
 
-CMD ["mysqld"]
+VOLUME ["/backups/mysql"]
+COPY start /start
+RUN chmod 755 /start
+CMD ["/start"]

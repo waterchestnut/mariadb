@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ "$MARIABACKUP_START"=="yes" ]; then
+    service cron start
+fi
+
+mysqld

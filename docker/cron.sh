@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo -u backup systemd-cat --identifier=backup-mysql /usr/local/bin/backup-mysql.sh
+sudo -u backup /usr/local/bin/backup-mysql.sh
