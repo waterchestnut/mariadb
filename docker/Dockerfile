@@ -35,6 +35,9 @@ COPY  ./cron.sh   /etc/cron.hourly/backup-mysql
 RUN chmod +x /etc/cron.hourly/backup-mysql
 
 VOLUME ["/backups/mysql"]
-COPY start /start
-RUN chmod 755 /start
-CMD ["/start"]
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 3306
+CMD ["mysqld"]

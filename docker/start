@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if [ "$MARIABACKUP_START"=="yes" ]; then
-    service cron start
-fi
-
-sudo -u mysql mysqld
