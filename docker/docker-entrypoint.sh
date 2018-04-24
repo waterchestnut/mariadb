@@ -3,7 +3,7 @@ set -eo pipefail
 shopt -s nullglob
 
 # start cron
-if [ "$MARIABACKUP_START"=="yes" ]; then
+if [ "$MARIABACKUP_START" == "yes" ]; then
     service cron start
 fi
 
