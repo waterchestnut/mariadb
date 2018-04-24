@@ -2,11 +2,11 @@
 
 export LC_ALL=C
 
-days_of_backups=3  # Must be less than 7
+days_of_backups=30  # 30 days
 backup_owner="backup"
 parent_dir="/backups/mysql"
 defaults_file="/etc/mysql/backup.cnf"
-todays_dir="${parent_dir}/$(date +%a)"
+todays_dir="${parent_dir}/$(date +%Y%m%d)"
 log_file="${todays_dir}/backup-progress.log"
 #encryption_key_file="${parent_dir}/encryption_key"
 now="$(date +%m-%d-%Y_%H-%M-%S)"
@@ -64,7 +64,7 @@ set_options () {
 
 rotate_old () {
     # Remove the oldest backup in rotation
-    day_dir_to_remove="${parent_dir}/$(date --date="${days_of_backups} days ago" +%a)"
+    day_dir_to_remove="${parent_dir}/$(date --date="${days_of_backups} days ago" +%Y%m%d)"
 
     if [ -d "${day_dir_to_remove}" ]; then
         rm -rf "${day_dir_to_remove}"
