@@ -24,10 +24,10 @@ COPY ./*-mysql.sh /usr/local/bin/
 RUN set -ex; \
         chmod +x    /usr/local/bin/*-mysql.sh
 
-# install cron、sudo and mariabackup
+# install cron、sudo、qpress and mariabackup
 RUN set -ex; \
         apt-get update; \
-        apt-get install -y --no-install-recommends mariadb-backup-10.3 cron sudo; \
+        apt-get install -y --no-install-recommends mariadb-backup-10.3 cron sudo qpress; \
         rm -rf /var/lib/apt/lists/*
 
 # Creating a Cron Job to Run Backups Hourly

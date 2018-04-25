@@ -35,17 +35,17 @@ do_backup () {
     # Apply the logs to each of the backups
     printf "Initial prep of full backup %s\n" "${full_backup_dir}"
     #innobackupex --redo-only --apply-log "${full_backup_dir}"
-    mariabackup --apply-log "${full_backup_dir}"
+    mariabackup --apply-log-only --prepare --target-dir "${full_backup_dir}"
     
     for increment in "${incremental_dirs[@]}"; do
         printf "Applying incremental backup %s to %s\n" "${increment}" "${full_backup_dir}"
         #innobackupex --redo-only --apply-log --incremental-dir="${increment}" "${full_backup_dir}"
-        mariabackup --apply-log --incremental-dir="${increment}" "${full_backup_dir}"
+        mariabackup --apply-log-only --incremental-dir="${increment}" --prepare --target-dir "${full_backup_dir}"
     done
     
     printf "Applying final logs to full backup %s\n" "${full_backup_dir}"
     #innobackupex --apply-log "${full_backup_dir}"
-    mariabackup --apply-log "${full_backup_dir}"
+    mariabackup --apply-log-only --prepare --target-dir "${full_backup_dir}"
 }
 
 sanity_check && do_backup > "${log_file}" 2>&1
@@ -53,9 +53,10 @@ sanity_check && do_backup > "${log_file}" 2>&1
 # Check the number of reported completions.  Each time a backup is processed,
 # an informational "completed OK" and a real version is printed.  At the end of
 # the process, a final full apply is performed, generating another 2 messages.
+# but 10.3 version only once
 ok_count="$(grep -c 'completed OK' "${log_file}")"
 
-if (( ${ok_count} == 2 * (${#full_dirs[@]} + ${#incremental_dirs[@]} + 1) )); then
+if (( ${ok_count} == 1 * (${#full_dirs[@]} + ${#incremental_dirs[@]} + 1) )); then
     cat << EOF
 Backup looks to be fully prepared.  Please check the "prepare-progress.log" file
 to verify before continuing.
