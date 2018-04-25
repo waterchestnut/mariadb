@@ -71,8 +71,10 @@ First, stop MySQL and move or remove the contents of the MySQL data directory:
 Then, recreate the data directory and  copy the backup files:
     
         sudo mkdir /var/lib/mysql
-        sudo mariabackup --copy-back  --target-dir ${PWD}/$(basename "${full_backup_dir}")
-    
+        sudo mariabackup --copy-back --target-dir ${PWD}/$(basename "${full_backup_dir}")
+        or
+        sudo mariabackup --copy-back --datadir /backups/mysql/data  --target-dir ${PWD}/$(basename "${full_backup_dir}")
+
 Afterward the files are copied, adjust the permissions and restart the service:
     
         sudo chown -R mysql:mysql /var/lib/mysql
