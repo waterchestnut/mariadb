@@ -4,9 +4,7 @@ shopt -s nullglob
 
 # start cron
 if [ "$MARIABACKUP_START" == "yes" ]; then
-    sudo chmod +x /etc/cron.hourly/backup-mysql
-    sudo chmod +x /etc/cron.d/backup-mysql
-    sudo service cron start
+    service cron start
 fi
 
 # if command starts with an option, prepend mysqld
