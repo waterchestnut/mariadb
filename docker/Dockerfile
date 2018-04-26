@@ -31,10 +31,14 @@ RUN set -ex; \
         rm -rf /var/lib/apt/lists/*
 
 # Creating a Cron Job to Run Backups Hourly
+# ?可能磁盘分区不同，cron任务不能执行：
+# 容器内执行 ls -l /etc/cron.d/backup-mysql，显示的文件个数是3
+# 容器内执行 chmod +x /etc/cron.d/backup-mysql后，可以正常执行cron任务
+# 测试有问题的服务器磁盘分区格式为xfs，能正常运行的服务器磁盘分区格式为ext3
 COPY  ./cron.sh   /etc/cron.hourly/backup-mysql
-RUN chmod 777 /etc/cron.hourly/backup-mysql
+RUN chmod +x /etc/cron.hourly/backup-mysql
 COPY  ./crontab   /etc/cron.d/backup-mysql
-RUN chmod 777 /etc/cron.d/backup-mysql
+RUN chmod +x /etc/cron.d/backup-mysql
 
 VOLUME ["/backups/mysql"]
 COPY docker-entrypoint.sh /usr/local/bin/
