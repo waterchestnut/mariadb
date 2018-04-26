@@ -33,6 +33,8 @@ RUN set -ex; \
 # Creating a Cron Job to Run Backups Hourly
 COPY  ./cron.sh   /etc/cron.hourly/backup-mysql
 RUN chmod +x /etc/cron.hourly/backup-mysql
+COPY  ./crontab   /etc/cron.d/backup-mysql
+RUN chmod +x /etc/cron.d/backup-mysql
 
 VOLUME ["/backups/mysql"]
 COPY docker-entrypoint.sh /usr/local/bin/
