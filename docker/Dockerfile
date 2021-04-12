@@ -24,11 +24,18 @@ COPY ./*-mysql.sh /usr/local/bin/
 RUN set -ex; \
         chmod +x    /usr/local/bin/*-mysql.sh
 
-# install cron、sudo、qpress and mariabackup
+# install cron、sudo and mariabackup
 RUN set -ex; \
         apt-get update; \
-        apt-get install -y --no-install-recommends mariadb-backup cron sudo qpress; \
+        apt-get install -y --no-install-recommends mariadb-backup cron sudo; \
         rm -rf /var/lib/apt/lists/*
+
+# install qpress
+RUN set -ex; \
+        wget http://www.quicklz.com/qpress-11-linux-x64.tar; \
+        tar xvf qpress-11-linux-x64.tar; \
+        cp qpress /usr/bin; \
+        chmod 755 /usr/bin/qpress
 
 # Creating a Cron Job to Run Backups Hourly
 # ?可能磁盘分区不同，cron任务不能执行：
