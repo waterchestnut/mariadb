@@ -31,10 +31,8 @@ RUN set -ex; \
         rm -rf /var/lib/apt/lists/*
 
 # install qpress
+ADD qpress-11-linux-x64.tar /usr/bin/
 RUN set -ex; \
-        wget http://www.quicklz.com/qpress-11-linux-x64.tar; \
-        tar xvf qpress-11-linux-x64.tar; \
-        cp qpress /usr/bin; \
         chmod 755 /usr/bin/qpress
 
 # Creating a Cron Job to Run Backups Hourly
