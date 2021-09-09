@@ -27,7 +27,7 @@ RUN set -ex; \
 # install cron、sudo、qpress and mariabackup
 RUN set -ex; \
         apt-get update; \
-        apt-get install -y --no-install-recommends mariadb-backup-10.3 cron sudo qpress; \
+        apt-get install -y --no-install-recommends mariadb-backup cron sudo qpress; \
         rm -rf /var/lib/apt/lists/*
 
 # Creating a Cron Job to Run Backups Hourly
