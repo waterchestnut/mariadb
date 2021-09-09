@@ -1,5 +1,5 @@
-# mariadb 10.5.9
-FROM mariadb:10.5.9
+# mariadb 10.5.12
+FROM mariadb:10.5.12
 MAINTAINER waterchestnut
 
 # Configuring a Systems Backup User and Assigning Permissions
